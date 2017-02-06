@@ -140,7 +140,7 @@ SELECT
                 while (reader.Read())  
                 {  
                     Console.WriteLine("{0}",  
-                        reader.GetString(0));                      
+                        reader.GetString(0));                       
 
 
                     names.Add(reader.GetString(0));
