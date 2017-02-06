@@ -13,12 +13,19 @@
 <p>@ViewData["andmed"]</p>
 
 
-
-@foreach(var item in results)
-{
-    <p>@item</p>
-}
-
+<table class="table table-striped">
+	  <tr>
+	    <th>Firstname</th>
+	    <th>Lastname</th> 
+	  </tr>
+	@foreach(var item in results)
+	{
+	  <tr>
+	    <td>@item.FirstName</td>
+	    <td>@item.LastName</td> 
+	  </tr>
+	}
+</table>
 
 
 <address>

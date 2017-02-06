@@ -9,6 +9,12 @@ using Link.Models;
 
 namespace Link.Controllers
 {
+    public class FullName
+    {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+    }
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -120,9 +126,9 @@ namespace Link.Controllers
 
 
 
-        static public List<string> SelectRows(QC.SqlConnection connection)  
+        static public List<FullName> SelectRows(QC.SqlConnection connection)  
         {  
-            List<string> names = new List<string>();
+            List<FullName> names = new List<FullName>();
 
             using (var command = new QC.SqlCommand())  
             {  
@@ -130,20 +136,24 @@ namespace Link.Controllers
                 command.CommandType = DT.CommandType.Text;  
                 command.CommandText = @"  
 SELECT  
-        FirstName
+        FirstName,
+        LastName
     FROM  
         ganondorf  
      ";  
 
                 QC.SqlDataReader reader = command.ExecuteReader();  
-                names.Add("aa");
+                
                 while (reader.Read())  
                 {  
                     Console.WriteLine("{0}",  
                         reader.GetString(0));                       
 
 
-                    names.Add(reader.GetString(0));
+                    names.Add(new FullName() {
+                        FirstName = reader.GetString(0),
+                        LastName = reader.GetString(1)
+                        });
                 }  
             }  
         return names;
