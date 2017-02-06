@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Popid";
+}
+@{
+    var results = ViewBag.contents;
+}
+
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<br><br><br>
+<p>@ViewData["andmed"]</p>
+
+
+
+@foreach(var item in results)
+{
+    <p>@item</p>
+}
+
+
+
+<address>
+    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
+</address>
