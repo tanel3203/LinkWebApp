@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using DT = System.Data;
-using QC = System.Data.SqlClient;  // System.Data.dll  
 
 
 namespace Link
