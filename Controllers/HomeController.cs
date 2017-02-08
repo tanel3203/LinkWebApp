@@ -9,31 +9,17 @@ using Link.Models;
 
 namespace Link.Controllers
 {
-    public class FullName
+    public class Result
     {
-        public string FirstName { get; set; }
+        public int Score { get; set; }
 
-        public string LastName { get; set; }
+        public string Url { get; set; }
     }
+
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            
-            using (var connection = new QC.SqlConnection(  
-                "Server=tcp:ganondorf2.database.windows.net,1433;Initial Catalog=ganondorf2;Persist Security Info=False;User ID=tanel3203;Password=b1gBadpassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"  
-                ))  
-            {  
-                
-                connection.Open();  
-                Console.WriteLine("Connected successfully.");  
-
-
-                Console.WriteLine("Create below."); 
-                HomeController.CreateTable(connection);
-                Console.WriteLine("Create above");  
-            }
-            
 
 
             return View();
@@ -41,9 +27,7 @@ namespace Link.Controllers
 
         public IActionResult Popid()
         {
-            ViewData["Message"] = "Your app description page.";
-            ViewData["andmed"] = "initialized";
-            ViewBag.contents = "inited";
+            ViewBag.contents = "";
             using (var connection = new QC.SqlConnection(  
                 "Server=tcp:ganondorf2.database.windows.net,1433;Initial Catalog=ganondorf2;Persist Security Info=False;User ID=tanel3203;Password=b1gBadpassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"  
                 ))  
@@ -52,12 +36,7 @@ namespace Link.Controllers
                 connection.Open();  
                 Console.WriteLine("Connected successfully.");  
 
-
-                //Program.DeleteRows(connection);
-                Console.WriteLine("Select below."); 
                 ViewBag.contents = HomeController.SelectRows(connection);
-                //ViewData["andmed"] = HomeController.SelectRows(connection).ToArray().ToString();
-                Console.WriteLine("Select above");  
             }
 
             return View();
@@ -88,7 +67,6 @@ namespace Link.Controllers
                 connection.Open();  
                 Console.WriteLine("Connected successfully.");  
 
-                Console.WriteLine("Insert below");  
                 HomeController.InsertRows(connection, inputFirstName,
                                                         inputLastName,
                                                         inputBirthDate,
@@ -98,26 +76,10 @@ namespace Link.Controllers
                                                         inputOwnerName,
                                                         inputCategory,
                                                         inputPoints);
-                Console.WriteLine("Insert closed"); 
 
             }
 
             Console.WriteLine("Submitted!..."); 
-            Console.WriteLine(inputPoints);
-            Console.WriteLine("Press any key to finish...");  
-            Console.ReadKey(true);   
-
-            /* Finish up 
-
-            inputFirstName = null;
-            inputLastName = null;
-            inputBirthDate = null;
-            inputTitle = null;
-            inputUrl = null;
-            inputDescription = null;
-            inputOwnerName = null;
-            inputCategory = null;
-            inputPoints = null;*/
 
             return View();
         }
@@ -126,33 +88,39 @@ namespace Link.Controllers
 
 
 
-        static public List<FullName> SelectRows(QC.SqlConnection connection)  
+        static public List<Result> SelectRows(QC.SqlConnection connection)  
         {  
-            List<FullName> names = new List<FullName>();
+            List<Result> names = new List<Result>();
 
             using (var command = new QC.SqlCommand())  
             {  
                 command.Connection = connection;  
                 command.CommandType = DT.CommandType.Text;  
                 command.CommandText = @"  
-SELECT  
-        FirstName,
-        LastName
-    FROM  
-        ganondorf  
-     ";  
+                                        SELECT 
+                                            TOP 10
+                                                SUM(CAST(g1.Points AS int)) as Points,
+                                                g1.Url
+                                            FROM
+                                                ganondorf AS g1
+                                            GROUP BY
+                                                g1.Url
+                                            ORDER BY
+                                                Points DESC
+
+                                        ;";  
 
                 QC.SqlDataReader reader = command.ExecuteReader();  
                 
                 while (reader.Read())  
                 {  
                     Console.WriteLine("{0}",  
-                        reader.GetString(0));                       
+                        reader.GetString(1));                       
 
 
-                    names.Add(new FullName() {
-                        FirstName = reader.GetString(0),
-                        LastName = reader.GetString(1)
+                    names.Add(new Result() {
+                        Score = reader.GetInt32(0),
+                        Url = reader.GetString(1)
                         });
                 }  
             }  
@@ -179,30 +147,30 @@ SELECT
                 command.Connection = connection;  
                 command.CommandType = DT.CommandType.Text;  
                 command.CommandText = @"  
-INSERT INTO ganondorf 
-        (FirstName,
-        LastName,
-        BirthDate,
-        Title,
-        Url,
-        Description,
-        OwnerName,
-        Category,
-        Points
-        )  
-    OUTPUT  
-        INSERTED.Title  
-    VALUES  
-        (@FirstName,
-        @LastName,
-        @BirthDate,
-        @Title,
-        @Url,
-        @Description,
-        @OwnerName,
-        @Category,
-        @Points
-        ); ";  
+                                        INSERT INTO ganondorf 
+                                                (FirstName,
+                                                LastName,
+                                                BirthDate,
+                                                Title,
+                                                Url,
+                                                Description,
+                                                OwnerName,
+                                                Category,
+                                                Points
+                                                )  
+                                            OUTPUT  
+                                                INSERTED.Title  
+                                            VALUES  
+                                                (@FirstName,
+                                                @LastName,
+                                                @BirthDate,
+                                                @Title,
+                                                @Url,
+                                                @Description,
+                                                @OwnerName,
+                                                @Category,
+                                                @Points
+                                        ); ";  
 
 
                 parameter = new QC.SqlParameter("@FirstName", DT.SqlDbType.NVarChar, 255);  
@@ -254,24 +222,18 @@ INSERT INTO ganondorf
                 command.Connection = connection;  
                 command.CommandType = DT.CommandType.Text;  
                 command.CommandText = @"  
-CREATE TABLE ganondorf 
-        (
-        FirstName varchar(255),
-        LastName varchar(255),
-        BirthDate varchar(255),
-        Title varchar(255),
-        Url varchar(255),
-        Description varchar(255),
-        OwnerName varchar(255),
-        Category varchar(255),
-        Points varchar(255)
-        ); ";  
-                /*
-                parameter = new QC.SqlParameter("@TableName", DT.SqlDbType.NVarChar, 25);  
-                parameter.Value = "LinkDb";  
-                command.Parameters.Add(parameter);  
-                */
-                //int productId = (int)command.ExecuteScalar();  
+                                        CREATE TABLE ganondorf 
+                                                (
+                                                FirstName varchar(255),
+                                                LastName varchar(255),
+                                                BirthDate varchar(255),
+                                                Title varchar(255),
+                                                Url varchar(255),
+                                                Description varchar(255),
+                                                OwnerName varchar(255),
+                                                Category varchar(255),
+                                                Points varchar(255)
+                                        ); ";  
                 command.ExecuteScalar();  
                 Console.WriteLine("New table created");  
             }  

@@ -4,8 +4,6 @@
 @using Link
 
 
-
-
 <br><br><br> 
 
 
@@ -16,15 +14,15 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="inputFirstName">Eesnimi</label>
-                <input type="text" class="form-control" name="inputFirstName" placeholder="Jane">
+                <input type="text" class="form-control" name="inputFirstName" placeholder="Jane" required>
               </div>
               <div class="form-group">
                 <label for="inputLastName">Perenimi</label>
-                <input type="text" class="form-control" name="inputLastName" placeholder="Doe">
+                <input type="text" class="form-control" name="inputLastName" placeholder="Doe" required>
               </div>
               <div class="form-group">
                 <label for="inputBirthDate">Sünnikuupäev</label>
-                <input type="date" class="form-control" name="inputBirthDate">
+                <input type="date" class="form-control" name="inputBirthDate" required>
               </div>
             </div>
         </div>
@@ -36,13 +34,13 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="inputTitle">Pealkiri</label>
-                <input type="text" class="form-control" name="inputTitle" placeholder="Legend of Zelda">
+                <input type="text" class="form-control" name="inputTitle" placeholder="Legend of Zelda" required>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="inputUrl">URL</label>
-                <input type="url" class="form-control" name="inputUrl" placeholder="must start with http://">
+                <input type="url" class="form-control" name="inputUrl" placeholder="must start with http://" required>
               </div>
             </div>
         </div> 
@@ -50,13 +48,13 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="inputDescription">Kirjeldus</label>
-                <input type="textarea" class="form-control" name="inputDescription" placeholder="Zelda does ...">
+                <input type="textarea" class="form-control" name="inputDescription" placeholder="Zelda does ..." required>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="inputOwnerName">Omaniku nimi</label>
-                <input type="text" class="form-control" name="inputOwnerName" placeholder="John Doe">
+                <input type="text" class="form-control" name="inputOwnerName" placeholder="John Doe" required>
               </div>
             </div> 
         </div> 
@@ -91,121 +89,6 @@
         </div> 
 
 
- <input type="submit" value="View Report">
+ <input type="submit" value="Lisa">
 </form>
 
-
-
-
-
-
-
-
-<!--
-<div id="links-form">
-    <br>
-    <form>
-    <h5> PERSONAL INFO </h5>
-        <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="inputFirstName">Eesnimi</label>
-                <input type="text" class="form-control" id="inputFirstName" placeholder="Jane">
-              </div>
-              <div class="form-group">
-                <label for="inputLastName">Perenimi</label>
-                <input type="text" class="form-control" id="inputLastName" placeholder="Doe">
-              </div>
-              <div class="form-group">
-                <label for="inputBirthDate">Sünnikuupäev</label>
-                <input type="date" class="form-control" id="inputBirthDate">
-              </div>
-            </div>
-        </div>
-
-        <h5> FAVORITES </h5>
-        <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="inputTitle">Pealkiri</label>
-                <input type="text" class="form-control" id="inputTitle" placeholder="Legend of Zelda">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="inputUrl">URL</label>
-                <input type="url" class="form-control" id="inputUrl" placeholder="www.zelda.com">
-              </div>
-            </div>
-        </div> 
-        <div class="row">        
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="inputDescription">Kirjeldus</label>
-                <input type="textarea" class="form-control" id="inputDescription" placeholder="Zelda does ...">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="inputOwnerName">Omaniku nimi</label>
-                <input type="text" class="form-control" id="inputOwnerName" placeholder="John Doe">
-              </div>
-            </div> 
-        </div> 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="inputCategory">Kategooria</label>
-                <select name="inputCategory" id="inputCategory">
-                  <option value="meelelahutus">meelelahutus</option>
-                  <option value="tehnoloogiauudised">tehnoloogiauudised</option>
-                  <option value="muu">muu</option>
-                </select>
-              </div>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="inputPoints">Punktid</label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 4
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5"> 5
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option6"> 6
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option7"> 7
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option8"> 8
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio9" value="option9"> 9
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio10" value="option10"> 10
-                </label>
-              </div>
-            </div>
-        </div> 
-
-
-
-      <button type="submit" class="btn btn-default">Sisesta</button>
-    </form>
-</div>
-
--->
