@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DT = System.Data;
 using QC = System.Data.SqlClient;  // System.Data.dll  
-using Link.Models;
 
 namespace Link.Controllers
 {
